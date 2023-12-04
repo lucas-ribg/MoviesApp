@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/screens/movies_details_screen.dart';
 import 'package:movies_app/services/tmdb_service.dart';
 
 class Movies extends StatefulWidget {
@@ -25,6 +26,15 @@ class _MoviesState extends State<Movies> {
     });
   }
 
+  void _navigateToDetails(String movieId) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MovieDetails(id: movieId.toString()),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +50,9 @@ class _MoviesState extends State<Movies> {
                 itemCount: _results.length,
                 itemBuilder: (context, index) {
                   return ListTile(
+                    onTap: () {
+                      _navigateToDetails(_results[index]['id'].toString());
+                    },
                     leading: CircleAvatar(
                       foregroundImage: NetworkImage(tmdb.getImage(_results[index]['poster_path'])),
                     ),

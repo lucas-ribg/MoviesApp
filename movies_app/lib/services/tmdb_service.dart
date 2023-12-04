@@ -36,7 +36,7 @@ class TMDBService {
   }
 
   Future<Map<String, dynamic>> getDetails(String type, String id) async {
-    final response = await http.get(Uri.parse('$_baseUrl/$type/$id/language=en-US'), headers: _headers);
+    final response = await http.get(Uri.parse('$_baseUrl$type/$id'), headers: _headers);
     if (response.statusCode == 200) {
       Map<String, dynamic> data = json.decode(response.body);
       Map<String, dynamic> details = Map<String, dynamic>.from(data);
